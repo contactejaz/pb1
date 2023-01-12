@@ -88,7 +88,27 @@ while current !== null
   current = current.next
 wend  
 
+
+printBackward
+1 5 7 10
+H      T
+
+10 7 5 1
+
 */
+
+function printBackward(node) {
+    let current = node;
+    let s='';
+    
+    while (current !== null){
+      s = current.data + ' ' + s;
+      current = current.next;
+      
+    }
+  
+  return ('printBackward= ' + s);
+}
 
 function printForward(node) {
     let current = node;
@@ -99,9 +119,19 @@ function printForward(node) {
       current = current.next;
       
     }
-  //  console.log ('printForward= ' + s);
+  
   return ('printForward= ' + s);
 }
+
+
+
+
+
+
+
+
+
+
 //let nodeExample = [1, 5, 7, 10];
 let linkedList = new SinglyLinkedList();
 linkedList.insertNode(1);
@@ -110,6 +140,9 @@ linkedList.insertNode(7);
 linkedList.insertNode(10);
 
 console.log(printForward(linkedList.head));
+console.log(printBackward(linkedList.head));
+
+
 
 
 function main() {
