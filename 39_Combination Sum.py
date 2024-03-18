@@ -1,5 +1,5 @@
 def combinationSum(candidates, target):
-    def backtrack(remain, path, start):
+    def backtrack(remain, start, path):
         if remain == 0:
             res.append(path[:])
             return
@@ -7,11 +7,12 @@ def combinationSum(candidates, target):
             return
         for i in range(start, len(candidates)):
             path.append(candidates[i])
-            backtrack(remain - candidates[i], path, i)
+            backtrack(remain - candidates[i], i, path)
             path.pop()
     
     res = []
-    backtrack(target, [], 0)
+    candidates.sort()
+    backtrack(target, 0, [])
     return res
 
 # Example usage
