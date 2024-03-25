@@ -1,7 +1,20 @@
-from itertools import permutations
-
 def permute(nums):
-    return list(permutations(nums))
+    def backtrack(path, used):
+        if len(path) == len(nums):
+            permutations.append(path.copy())
+            return
+        for i in range(len(nums)):
+            if not used[i]:
+                used[i] = True
+                path.append(nums[i])
+                backtrack(path, used)
+                path.pop()
+                used[i] = False
+
+    permutations = []
+    used = [False] * len(nums)
+    backtrack([], used)
+    return permutations
 
 # Example usage
 nums1 = [1, 2, 3]
