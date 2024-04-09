@@ -1,29 +1,30 @@
-function merge(intervals) {
-    if (intervals.length <= 1) {
-        return intervals;
-    }
-    
+function mergeIntervals(intervals) {
+    // Sort the intervals based on start time
     intervals.sort((a, b) => a[0] - b[0]);
-    
-    let merged = [intervals[0]];
-    
+
+    let mergedIntervals = [];
+    let currentInterval = intervals[0];
+
     for (let i = 1; i < intervals.length; i++) {
-        let currentInterval = intervals[i];
-        let lastMergedInterval = merged[merged.length - 1];
-        
-        if (currentInterval[0] <= lastMergedInterval[1]) {
-            lastMergedInterval[1] = Math.max(lastMergedInterval[1], currentInterval[1]);
+        let nextInterval = intervals[i];
+
+        // If current interval overlaps with the next interval
+        if (currentInterval[1] >= nextInterval[0]) {
+            // Merge the intervals
+            currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
         } else {
-            merged.push(currentInterval);
+            // If no overlap, push the current interval and update currentInterval
+            mergedIntervals.push(currentInterval);
+            currentInterval = nextInterval;
         }
     }
-    
-    return merged;
+
+    // Push the last remaining interval
+    mergedIntervals.push(currentInterval);
+
+    return mergedIntervals;
 }
 
-// Example usage
-let intervals1 = [[1,3],[2,6],[8,10],[15,18]];
-console.log(merge(intervals1)); // Output: [[1,6],[8,10],[15,18]]
-
-let intervals2 = [[1,4],[4,5]];
-console.log(merge(intervals2)); // Output: [[1,5]]
+// Test cases
+console.log(mergeIntervals([[1, 3], [2, 6], [8, 10], [15, 18]])); // Output: [[1, 6], [8, 10], [15, 18]]
+console.log(mergeIntervals([[1, 4], [4, 5]])); // Output: [[1, 5]]
